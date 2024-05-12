@@ -6,29 +6,17 @@ import {
   TableRow,
   TableCell,
   Pagination,
+  Tooltip,
+  Button,
 } from "@nextui-org/react";
 import { Clipboard } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 
-export interface TablesProps {
-  id: string;
-  shortId: string;
-  redirectUrl: string;
-  visitHistory: [
-    {
-      id: string;
-      createdAt: string;
-    }
-  ];
-  createdAt: string;
-  updatedAt: string;
-}
-
 const Tables = ({ analytics }: { analytics: TablesProps[] }) => {
   const [page, setPage] = useState(1);
 
-  const rowsPerPage = 4;
+  const rowsPerPage = 6;
 
   const pages = Math.ceil(analytics.length / rowsPerPage);
 
@@ -37,69 +25,65 @@ const Tables = ({ analytics }: { analytics: TablesProps[] }) => {
     const end = start + rowsPerPage;
 
     return analytics.slice(start, end);
-  }, [page, analytics]);
+  }, [page, analytics, rowsPerPage]);
 
-  const renderCell = useCallback((data: TablesProps, columnKey: unknown) => {
+  const renderCell = useCallback((data: any, columnKey: string | number) => {
     const cellValue = data[columnKey];
 
     switch (columnKey) {
       case "shortLink":
         return (
-          <div className="flex items-center gap-2 justify-between">
+          <span className="flex items-center gap-2 justify-between">
             {`${window.location.href}${data.shortId}`}
 
             <CopyToClipboard text={`${window.location.href}${data.shortId}`}>
-              <button
-                title="copy link"
-                className={`border p-2 rounded-3xl  text-center bg-[#f7c00ae8] cursor-pointer `}
-              >
-                <Clipboard size={16} />
-              </button>
+              <Tooltip content="I am a tooltip">
+                <button
+                  title="copy link"
+                  className={`border p-2 rounded-3xl  text-center bg-[#f7c00ae8] cursor-pointer `}
+                >
+                  <Clipboard size={16} />
+                </button>
+              </Tooltip>
             </CopyToClipboard>
-          </div>
+          </span>
         );
       case "visitNumber":
-        return <div>{data.visitHistory.length}</div>;
+        return <span>{data.visitHistory.length}</span>;
       case "url":
-        return <div>{data.redirectUrl}</div>;
-      case "date":
-        return (
-          <div>
-            {new Date(data.createdAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </div>
-        );
+        return <span>{data.redirectUrl}</span>;
       default:
         return cellValue;
     }
   }, []);
 
+  const bottomContent = useMemo(() => {
+    return (
+      <div className="py-2 px-2 flex justify-center items-center">
+        <Pagination
+          isCompact
+          showControls
+          showShadow
+          color="primary"
+          page={page}
+          total={pages}
+          onChange={setPage}
+        />
+      </div>
+    );
+  }, [page, pages]);
+
   return (
     <Table
-      fullWidth
       isStriped
-      className="w-full overflow-hidden"
+      isHeaderSticky
+      fullWidth
       aria-label="Example static collection "
-      bottomContent={
-        <div className="flex w-full justify-center">
-          <Pagination
-            isCompact
-            showControls
-            showShadow
-            color="secondary"
-            page={page}
-            total={pages}
-            onChange={(page) => setPage(page)}
-          />
-        </div>
-      }
+      bottomContent={bottomContent}
     >
       <TableHeader>
+        <TableColumn key={"visitNumber"}>Visited</TableColumn>
         <TableColumn key={"shortLink"}>Short link</TableColumn>
-        <TableColumn key={"visitNumber"}>Visited Number</TableColumn>
         <TableColumn key={"url"}>Url</TableColumn>
         {/* <TableColumn>Date</TableColumn> */}
       </TableHeader>
@@ -107,7 +91,9 @@ const Tables = ({ analytics }: { analytics: TablesProps[] }) => {
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
+              <TableCell className="h-10 w-full">
+                {renderCell(item, columnKey)}
+              </TableCell>
             )}
           </TableRow>
         )}

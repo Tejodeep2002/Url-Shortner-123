@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import Tables from "@/components/Tables";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Card, Input } from "@nextui-org/react";
 import axios from "axios";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
-
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>("");
@@ -14,7 +14,6 @@ export default function Home() {
   const [isLoading, setisLoading] = useState(false);
   const [analytics, setAnalytics] = useState<TablesProps[]>([]);
 
-  
   console.log(window.location.href);
 
   const handleSubmit = async () => {
@@ -50,8 +49,8 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="w-full mt-10 max-w-6xl flex  mx-auto">
-      <section className="w-[40%] h-auto flex flex-col gap-7 p-4 pr-10">
+    <section className="w-full mt-10 px-10 flex  mx-auto ">
+      <Card className="w-full max-w-md h-fit flex flex-col gap-7 p-4 ">
         {/* <h1>UrlShortner 123</h1> */}
         <p className="text-lg font-semibold">
           Put your favorite Link🔗 and we convert🚀 your link into short link🖇️.
@@ -90,12 +89,12 @@ export default function Home() {
             </Button>
           </CopyToClipboard>
         </div>
-      </section>
+      </Card>
 
-      <section className="w-[60%] h-auto items-center gap-5 p-4  flex flex-col">
+      <Card className="w-full max-w-4xl mx-auto flex flex-col items-center gap-5 p-3">
         <h2 className="text-4xl font-bold">Previous short Links</h2>
         <Tables analytics={analytics} />
-      </section>
+      </Card>
     </section>
   );
 }

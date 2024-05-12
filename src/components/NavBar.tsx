@@ -4,6 +4,8 @@ import {
   NavbarContent,
   // NavbarItem,
 } from "@nextui-org/navbar";
+import { Github } from "lucide-react";
+import Link from "next/link";
 // import { Link } from "@nextui-org/react";
 
 const NavBar = () => {
@@ -13,6 +15,7 @@ const NavBar = () => {
       maxWidth="full"
       height={"4rem"}
       className=" flex "
+      isBordered
     >
       <NavbarBrand>
         <span className="text-4xl  font-dynaPuff text-[#f7c00ae8]">
@@ -36,10 +39,9 @@ const NavBar = () => {
           </Link>
         </NavbarItem>
       </NavbarContent> */}
-      <NavbarContent
-        className="hidden sm:flex gap-4"
-        justify="end"
-      ></NavbarContent>
+      <NavbarContent className="hidden sm:flex gap-4" justify="end">
+        
+      </NavbarContent>
     </Navbar>
   );
 };
