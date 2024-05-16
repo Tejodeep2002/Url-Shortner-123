@@ -37,14 +37,14 @@ const Tables = ({ analytics }: { analytics: TablesProps[] }) => {
             {`${window.location.href}${data.shortId}`}
 
             <CopyToClipboard text={`${window.location.href}${data.shortId}`}>
-              <Tooltip content="I am a tooltip">
-                <button
+              
+                <Button
                   title="copy link"
                   className={`border p-2 rounded-3xl  text-center bg-[#f7c00ae8] cursor-pointer `}
                 >
                   <Clipboard size={16} />
-                </button>
-              </Tooltip>
+                </Button>
+        
             </CopyToClipboard>
           </span>
         );

@@ -4,7 +4,7 @@ import { BsTwitterX } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <section className=" absolute bottom-7  flex justify-center w-full ">
+    <section className=" xl:absolute bottom-7 mt-10  flex justify-center w-full ">
       <div className="w-fit flex flex-col gap-3 ">
         <section className="w-full flex justify-center gap-5">
           <Link
