@@ -3,8 +3,6 @@ import Footer from "@/components/Footer";
 import Tables from "@/components/Tables";
 import { Button, Card, Input } from "@nextui-org/react";
 import axios from "axios";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 
@@ -15,7 +13,7 @@ export default function Home() {
   const [isLoading, setisLoading] = useState(false);
   const [analytics, setAnalytics] = useState<TablesProps[]>([]);
 
-  console.log(window.location.href);
+  // console.log(window.location.href);
 
   const handleSubmit = async () => {
     console.log(inputValue);
