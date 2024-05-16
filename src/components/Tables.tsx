@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Table,
   TableHeader,
@@ -34,25 +34,23 @@ const Tables = ({ analytics }: { analytics: TablesProps[] }) => {
     switch (columnKey) {
       case "shortLink":
         return (
-          <span className="flex items-center gap-2 justify-between">
+          <div className="flex items-center gap-2 ">
             {`${window.location.href}${data.shortId}`}
 
             <CopyToClipboard text={`${window.location.href}${data.shortId}`}>
-              
-                <Button
-                  title="copy link"
-                  className={`border p-2 rounded-3xl  text-center bg-[#f7c00ae8] cursor-pointer `}
-                >
-                  <Clipboard size={16} />
-                </Button>
-        
+              <Button
+                title="copy link"
+                className={`border p-2 rounded-3xl  text-center bg-[#f7c00ae8] cursor-pointer `}
+              >
+                <Clipboard size={16} />
+              </Button>
             </CopyToClipboard>
-          </span>
+          </div>
         );
       case "visitNumber":
-        return <span>{data.visitHistory.length}</span>;
+        return <div>{data.visitHistory.length}</div>;
       case "url":
-        return <span>{data.redirectUrl}</span>;
+        return <div>{data.redirectUrl}</div>;
       default:
         return cellValue;
     }
@@ -79,16 +77,16 @@ const Tables = ({ analytics }: { analytics: TablesProps[] }) => {
       isStriped
       isHeaderSticky
       fullWidth
-      aria-label="Example static collection "
+      aria-label="Previous Links Table "
       bottomContent={bottomContent}
     >
       <TableHeader>
-        <TableColumn key={"visitNumber"}>Visited</TableColumn>
         <TableColumn key={"shortLink"}>Short link</TableColumn>
+        <TableColumn key={"visitNumber"}>Visited</TableColumn>
         <TableColumn key={"url"}>Url</TableColumn>
         {/* <TableColumn>Date</TableColumn> */}
       </TableHeader>
-      <TableBody items={items}>
+      <TableBody items={items} >
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
