@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+
+Sitemap: https://urlshortner123.ttezo.in/sitemap.xml
