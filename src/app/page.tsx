@@ -40,7 +40,7 @@ export default function Home() {
   const fetchAnalytics = async () => {
     try {
       const responce = await fetch(`${window.location.href}api/analytics`, {
-        cache: "no-store",
+        next: { revalidate: 20 },
       });
       const links = await responce.json();
       setAnalytics(links);
